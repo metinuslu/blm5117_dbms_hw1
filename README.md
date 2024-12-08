@@ -1,4 +1,4 @@
-# Homework-1 for BLM5117 Implementatıon of Database Management Systems Course at YTU
+# Homework-1 for BLM5117 Implementation of Database Management Systems Course at YTU
 
 ## Project Details
 > **Description:** # Homework-1 & More Details: BLM5117_VTSG_HW-1.pdf  
