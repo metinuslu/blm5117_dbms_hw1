@@ -1,0 +1,15 @@
+Step-3.1: FillFactor Index
+    \timing
+    CREATE INDEX idx_b_fillfactor ON vtsg_db.public.T (b) WITH (fillfactor = 60);
+
+Step-3.2: Indexlerin İstatistikleri
+    SELECT *
+    FROM pg_stat_all_indexes
+    WHERE schemaname = 'public' AND relname = 't';
+
+Step-3.3: pgstattuple ile İndexlerin Detaylı İstatistikleri
+
+    CREATE EXTENSION IF NOT EXISTS pgstattuple;
+    SELECT * FROM pgstatindex('idx_b')
+    UNION ALL
+    SELECT * FROM pgstatindex('idx_b_fillfactor');

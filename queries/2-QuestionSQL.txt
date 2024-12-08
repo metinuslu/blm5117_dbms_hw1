@@ -1,0 +1,53 @@
+Step-2.1: Create B+Tree Index on "b" column
+	\timing
+
+	CREATE INDEX idx_b ON vtsg_db.public.T (b);
+
+
+Step-2.2: Index Detayları (pg_stat_all_indexes)
+	SELECT * 
+	FROM pg_stat_all_indexes
+	WHERE schemaname = 'public' AND relname = 't' AND indexrelname = 'idx_b';
+
+Step-2.3: Ağacın Yüksekliğini Bulma (bt_metap)
+	CREATE EXTENSION IF NOT EXISTS pageinspect;
+	SELECT * FROM bt_metap('idx_b');
+
+
+Step-2.4: Tekrar Eden Kayıtların Listelenmesi
+	SELECT b, COUNT(*) AS CNT
+	FROM vtsg_db.public.T
+	GROUP BY b
+	HAVING COUNT(*) > 1
+	ORDER BY 2 DESC;
+
+
+Step-2.5: Tekrar Eden Değerlerin Toplam Sayısı
+	SELECT COUNT(DISTINCT b) as "TotalRepetadValueCount"
+	FROM vtsg_db.public.T
+	WHERE b IN (
+		SELECT b
+		FROM vtsg_db.public.T
+		GROUP BY b
+		HAVING COUNT(*) > 1
+	);
+
+Step-2.6: Sonra sistem katalog sorguları ile bulun.
+	SELECT tablename, schemaname, attname, most_common_vals, most_common_freqs
+	FROM pg_stats
+	WHERE tablename = 't' AND schemaname = 'public' AND attname = 'b';
+
+Step-2.7:
+	-- Örnekleme Degeri
+	SHOW default_statistics_target;
+
+	-- Örnekleme Degeri 500
+	ALTER TABLE public.T ALTER COLUMN b SET STATISTICS 2000000;
+
+	-- t Tablosu b Kolonu İstatistiklerinin Tazelenmesi
+	ANALYZE public.t (b);
+	
+	--t Tablosu b Kolobu için istatistikler
+	SELECT tablename, schemaname, attname, most_common_vals, most_common_freqs
+	FROM pg_stats
+	WHERE tablename = 't' AND schemaname = 'public' AND attname = 'b';

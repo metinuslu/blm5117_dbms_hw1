@@ -1,0 +1,19 @@
+Step-9.1: T_Sorted Tablosunun Oluşturulması
+    CREATE TABLE t_sorted AS
+    SELECT * 
+    FROM vtsg_db.public.t 
+    ORDER BY a;
+
+Step-9.2: EXPLAIN ile Sorguyu gerçekleyiniz
+    EXPLAIN CREATE TABLE t_sorted AS
+    SELECT * 
+    FROM vtsg_db.public.t 
+    ORDER BY a;
+
+Step-9.3: Harici Sort yapılmadığı için work_mem değerini düşürüyoruz. 
+    SET work_mem = '64kB';
+
+    EXPLAIN CREATE TABLE t_sorted AS
+    SELECT * 
+    FROM vtsg_db.public.t 
+    ORDER BY a;

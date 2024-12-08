@@ -1,0 +1,4 @@
+Step-7.1: 
+    SELECT count (distinct b) FROM T;
+
+Step-7.3: Detaylar için 235B7014-VTSG-HW.{docx, pdf} dosyasına bakınız.

@@ -1,0 +1,18 @@
+Step-4.1: Add New Column: b2 
+    ALTER TABLE vtsg_db.public.T ADD COLUMN b2 INT;
+
+Step-4.2: Update b2 Column with Random Value
+    UPDATE vtsg_db.public.T
+    SET b2 = CASE
+        WHEN random() < 0.7 THEN 500000 + trunc(random() * 100000)::int -- %70 olasılıkla 500,000 - 600,000 aralığında
+        ELSE (random() * 1500000)::int -- %30 olasılıkla 0 - 1,500,000 arasında
+    END;
+
+Step-4.3: Create New Index on b2 column
+    \timing
+    CREATE INDEX idx_b2 ON vtsg_db.public.T (b2);    
+
+Step-4.4: Index İstatistikleri
+    SELECT * FROM pgstatindex('idx_b')
+    UNION ALL
+    SELECT * FROM pgstatindex('idx_b2');

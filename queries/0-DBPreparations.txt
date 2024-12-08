@@ -1,0 +1,11 @@
+Step-0.1: Connect Postgres DB
+	psql -h localhost -d postgres -U db_user
+
+Step-0.2: Show All Tables
+	\l
+
+Step-0.3: Create "vtsg_db" DB
+	CREATE DATABASE vtsg_db;
+
+Step-0.4: Connect DB
+	\c vtsg_db;

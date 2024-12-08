@@ -1,0 +1,7 @@
+Step-6.1: k1 ve k2 Değerlerini Belirleme
+    SELECT MIN(b) AS min_b, MAX(b) AS max_b FROM vtsg_db.public.T;
+
+Step-6.2: Sorgunun Index Kullanımı
+    EXPLAIN SELECT a FROM vtsg_db.public.T WHERE b BETWEEN 1 AND 1499997;
+
+Step-6.3: Detaylar için 235B7014-VTSG-HW.{docx, pdf} dosyasına bakınız.
