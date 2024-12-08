@@ -17,3 +17,11 @@ Step-9.3: Harici Sort yapılmadığı için work_mem değerini düşürüyoruz.
     SELECT * 
     FROM vtsg_db.public.t 
     ORDER BY a;
+
+Step-9.4: 
+    SET work_mem = '64kB';
+
+    EXPLAIN (analyze, BUFFERS)
+    SELECT * 
+    FROM vtsg_db.public.t 
+    ORDER BY a;
